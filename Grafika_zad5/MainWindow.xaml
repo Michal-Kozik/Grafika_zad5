@@ -43,5 +43,19 @@
                 <Label FontWeight="Bold" HorizontalAlignment="Center">Obraz zmodyfikowany</Label>
             </StackPanel>
         </StackPanel>
+        <Grid Grid.Row="2" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Border BorderBrush="Red" BorderThickness="1" Width="256">
+                    <StackPanel Name="sourceHistogram" Orientation="Horizontal">
+
+                    </StackPanel>
+                </Border>
+                <Border BorderBrush="Green" BorderThickness="1" Width="256">
+                    <StackPanel Name="resultHistogram" Orientation="Horizontal">
+
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

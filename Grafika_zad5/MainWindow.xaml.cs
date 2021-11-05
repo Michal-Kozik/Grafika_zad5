@@ -38,6 +38,54 @@ namespace Grafika_zad5
             }
         }
 
+        private void ClearSourceHistogram()
+        {
+            sourceHistogram.Children.Clear();
+        }
+
+        private void ClearResultHistogram()
+        {
+            resultHistogram.Children.Clear();
+        }
+
+        // Dla czarnobialych.
+        private void DrawSourceHistogram(byte[] pixelBuffer)
+        {
+            int[] colorPixels = new int[256];
+            for (int i = 0; i + 4< pixelBuffer.Length; i+= 4)
+            {
+                colorPixels[pixelBuffer[i]]++;
+            }
+            for (int i = 0; i < colorPixels.Length; i++)
+            {
+                System.Windows.Shapes.Rectangle r = new System.Windows.Shapes.Rectangle();
+                r.Width = 1;
+                r.Height = colorPixels[i] / 5;
+                r.Fill = new SolidColorBrush(Colors.Black);
+                r.VerticalAlignment = VerticalAlignment.Bottom;
+                sourceHistogram.Children.Add(r);
+            }
+        }
+
+        // Dla czarnobialych.
+        private void DrawResultHistogram(byte[] pixelBuffer)
+        {
+            int[] colorPixels = new int[256];
+            for (int i = 0; i + 4 < pixelBuffer.Length; i += 4)
+            {
+                colorPixels[pixelBuffer[i]]++;
+            }
+            for (int i = 0; i < colorPixels.Length; i++)
+            {
+                System.Windows.Shapes.Rectangle r = new System.Windows.Shapes.Rectangle();
+                r.Width = 1;
+                r.Height = colorPixels[i] / 5;
+                r.Fill = new SolidColorBrush(Colors.Black);
+                r.VerticalAlignment = VerticalAlignment.Bottom;
+                resultHistogram.Children.Add(r);
+            }
+        }
+
         private bool ImageExist()
         {
             return imgSource.Source == null ? false : true;
@@ -64,6 +112,9 @@ namespace Grafika_zad5
 
             byte maxValue = 0;
             byte minValue = 255;
+            ClearSourceHistogram();
+            ClearResultHistogram();
+            DrawSourceHistogram(pixelBuffer);
             // Dla czarno-bialego obrazka.
             for (int i = 0; i + 4 < pixelBuffer.Length; i += 4)
             {
@@ -79,10 +130,12 @@ namespace Grafika_zad5
             for (int i = 0; i + 4 < pixelBuffer.Length; i += 4)
             {
                 double result = (pixelBuffer[i] - minValue) * (255.0 / (maxValue - minValue));
-                pixelBuffer[i] = Convert.ToByte(Math.Floor(result));
-                pixelBuffer[i + 1] = Convert.ToByte(Math.Floor(result));
-                pixelBuffer[i + 2] = Convert.ToByte(Math.Floor(result));
+                result = Math.Round(result, 0);
+                pixelBuffer[i] = Convert.ToByte(result);
+                pixelBuffer[i + 1] = Convert.ToByte(result);
+                pixelBuffer[i + 2] = Convert.ToByte(result);
             }
+            DrawResultHistogram(pixelBuffer);
 
             // Rezultat.
             Bitmap imgResultBitmap = new Bitmap(imgSourceBitmap.Width, imgSourceBitmap.Height);
@@ -114,6 +167,9 @@ namespace Grafika_zad5
 
             imgSourceBitmap.UnlockBits(sourceBitmapData);
 
+            ClearSourceHistogram();
+            ClearResultHistogram();
+            DrawSourceHistogram(pixelBuffer);
             // Dla czarno-bialego obrazka.
             int[] colorPixels = new int[256];
             int numberOfPixels = 0;
@@ -139,6 +195,7 @@ namespace Grafika_zad5
                 pixelBuffer[i + 1] = Convert.ToByte(result);
                 pixelBuffer[i + 2] = Convert.ToByte(result);
             }
+            DrawResultHistogram(pixelBuffer);
 
             // Rezultat.
             Bitmap imgResultBitmap = new Bitmap(imgSourceBitmap.Width, imgSourceBitmap.Height);
