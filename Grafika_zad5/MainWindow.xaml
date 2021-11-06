@@ -28,6 +28,24 @@
             <Label FontWeight="Bold" HorizontalAlignment="Center">Histogram:</Label>
             <Button Margin="0,1" Width="150" Click="ExtendHistogram">Rozszerzenie</Button>
             <Button Margin="0,1" Width="150" Click="EqualizationHistogram">Wyrównanie</Button>
+            <Label FontWeight="Bold" HorizontalAlignment="Center">Binaryzacja:</Label>
+            <Border Padding="0,5,0,0" BorderThickness="0,1,0,0" BorderBrush="DarkGray">
+                <DockPanel>
+                    <Label>Próg binaryzacji:</Label>
+                    <TextBox Name="inputTreshhold" VerticalContentAlignment="Center"></TextBox>
+                </DockPanel>
+            </Border>
+            <Button Margin="0,1" Width="150" Click="CustomBinarization">Customowe</Button>
+            <Border>
+                <Border Margin="0,5,0,0" Padding="0,5,0,0" BorderThickness="0,1,0,0" BorderBrush="DarkGray">
+                    <StackPanel>
+                        <Label>Ilość iteracji</Label>
+                        <Slider Name="sliderIteration" Minimum="1" Maximum="30" TickFrequency="1"></Slider>
+                    </StackPanel>
+                </Border>
+            </Border>
+            <Button Margin="0,1" Width="150" Click="IterativeBinarization">Progowanie iteracyjne</Button>
+            
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
             <StackPanel VerticalAlignment="Center">
