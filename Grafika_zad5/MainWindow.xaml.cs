@@ -374,6 +374,83 @@ namespace Grafika_zad5
             imgResult.Source = ConvertBitmapToImageSource(imgResultBitmap);
         }
 
+        // Metoda Puna.
+        private void EntropyBinarization(object sender, RoutedEventArgs e)
+        {
+            if (!ImageExist())
+            {
+                MessageBox.Show("Nie załadowano obrazka!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Zrodlo.
+            Bitmap imgSourceBitmap = ConvertImgToBitmap(imgSource);
+            BitmapData sourceBitmapData = imgSourceBitmap.LockBits(new Rectangle(0, 0, imgSourceBitmap.Width, imgSourceBitmap.Height),
+                                                             ImageLockMode.ReadOnly,
+                                                             System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+            byte[] pixelBuffer = new byte[sourceBitmapData.Stride * sourceBitmapData.Height];
+            Marshal.Copy(sourceBitmapData.Scan0, pixelBuffer, 0, pixelBuffer.Length);
+
+            imgSourceBitmap.UnlockBits(sourceBitmapData);
+
+            ClearSourceHistogram();
+            ClearResultHistogram();
+            // Dla czarno-bialego obrazka.
+            int objectPixels;
+            int backgroundPixels;
+            int minDifference = 1000000;
+            int bestTreshold = 127;
+            for (int n = 0; n < 256; n++)
+            {
+                objectPixels = 0;
+                backgroundPixels = 0;
+                for (int i = 4; i + 4 < pixelBuffer.Length; i += 4)
+                {
+                    if (pixelBuffer[i] >= n)
+                    {
+                        backgroundPixels++;
+                    }
+                    else
+                    {
+                        objectPixels++;
+                    }
+                }
+                // Wyszukiwanie min roznicy.
+                if (Math.Abs(backgroundPixels - objectPixels) < minDifference)
+                {
+                    minDifference = Math.Abs(backgroundPixels - objectPixels);
+                    bestTreshold = n;
+                }
+            }
+            // Binaryzacja.
+            for (int i = 0; i + 4 < pixelBuffer.Length; i += 4)
+            {
+                if (pixelBuffer[i] >= bestTreshold)
+                {
+                    pixelBuffer[i] = 255;
+                    pixelBuffer[i + 1] = 255;
+                    pixelBuffer[i + 2] = 255;
+                }
+                else
+                {
+                    pixelBuffer[i] = 0;
+                    pixelBuffer[i + 1] = 0;
+                    pixelBuffer[i + 2] = 0;
+                }
+            }
+
+            // Rezultat.
+            Bitmap imgResultBitmap = new Bitmap(imgSourceBitmap.Width, imgSourceBitmap.Height);
+            BitmapData resultBitmapData = imgResultBitmap.LockBits(new Rectangle(0, 0, imgResultBitmap.Width, imgResultBitmap.Height),
+                                                                   ImageLockMode.WriteOnly,
+                                                                   System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+            Marshal.Copy(pixelBuffer, 0, resultBitmapData.Scan0, pixelBuffer.Length);
+            imgResultBitmap.UnlockBits(resultBitmapData);
+            imgResult.Source = ConvertBitmapToImageSource(imgResultBitmap);
+        }
+
         private Bitmap ConvertImgToBitmap(System.Windows.Controls.Image source)
         {
             RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)source.ActualWidth, (int)source.ActualHeight, 96.0, 96.0, PixelFormats.Pbgra32);
