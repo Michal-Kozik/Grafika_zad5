@@ -129,6 +129,14 @@ namespace Grafika_zad5
             byte minValue = 255;
             ClearSourceHistogram();
             ClearResultHistogram();
+            // Przejscie do skali szarosci.
+            //for (int i = 0; i + 4 < pixelBuffer.Length; i += 4)
+            //{
+            //    byte result = Convert.ToByte((pixelBuffer[i] + pixelBuffer[i + 1] + pixelBuffer[i + 2]) / 3.0);
+            //    pixelBuffer[i] = result;
+            //    pixelBuffer[i + 1] = result;
+            //    pixelBuffer[i + 2] = result;
+            //}
             DrawSourceHistogram(pixelBuffer);
             // Dla czarno-bialego obrazka.
             for (int i = 0; i + 4 < pixelBuffer.Length; i += 4)
@@ -184,6 +192,14 @@ namespace Grafika_zad5
 
             ClearSourceHistogram();
             ClearResultHistogram();
+            // Przejscie do skali szarosci.
+            //for (int i = 0; i + 4 < pixelBuffer.Length; i += 4)
+            //{
+            //    byte result = Convert.ToByte((pixelBuffer[i] + pixelBuffer[i + 1] + pixelBuffer[i + 2]) / 3.0);
+            //    pixelBuffer[i] = result;
+            //    pixelBuffer[i + 1] = result;
+            //    pixelBuffer[i + 2] = result;
+            //}
             DrawSourceHistogram(pixelBuffer);
             // Dla czarno-bialego obrazka.
             int[] colorPixels = new int[256];
@@ -249,6 +265,14 @@ namespace Grafika_zad5
             ClearSourceHistogram();
             ClearResultHistogram();
             byte treshold = Convert.ToByte(inputTreshhold.Text);
+            // Przejscie do skali szarosci.
+            //for (int i = 0; i + 4 < pixelBuffer.Length; i += 4)
+            //{
+            //    byte result = Convert.ToByte((pixelBuffer[i] + pixelBuffer[i + 1] + pixelBuffer[i + 2]) / 3.0);
+            //    pixelBuffer[i] = result;
+            //    pixelBuffer[i + 1] = result;
+            //    pixelBuffer[i + 2] = result;
+            //}
             // Dla czarno-bialego obrazka.
             for (int i = 0; i + 4 < pixelBuffer.Length; i += 4)
             {
@@ -304,6 +328,14 @@ namespace Grafika_zad5
             int backgroundBytes = 0;
             int objectSum = 0;
             int backgroundSum = 0;
+            // Przejscie do skali szarosci.
+            //for (int i = 0; i + 4 < pixelBuffer.Length; i += 4)
+            //{
+            //    byte result = Convert.ToByte((pixelBuffer[i] + pixelBuffer[i + 1] + pixelBuffer[i + 2]) / 3.0);
+            //    pixelBuffer[i] = result;
+            //    pixelBuffer[i + 1] = result;
+            //    pixelBuffer[i + 2] = result;
+            //}
             // Dla czarno-bialego obrazka.
             // Pierwsza iteracja.
             for (int i = 4; i + 4 < pixelBuffer.Length; i += 4)
@@ -396,6 +428,14 @@ namespace Grafika_zad5
 
             ClearSourceHistogram();
             ClearResultHistogram();
+            // Przejscie do skali szarosci.
+            //for (int i = 0; i + 4 < pixelBuffer.Length; i += 4)
+            //{
+            //    byte result = Convert.ToByte((pixelBuffer[i] + pixelBuffer[i + 1] + pixelBuffer[i + 2]) / 3.0);
+            //    pixelBuffer[i] = result;
+            //    pixelBuffer[i + 1] = result;
+            //    pixelBuffer[i + 2] = result;
+            //}
             // Dla czarno-bialego obrazka.
             int objectPixels;
             int backgroundPixels;
